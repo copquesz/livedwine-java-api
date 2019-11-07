@@ -4,16 +4,21 @@ import com.br.livedwine.exception.ResourceNotFoundException;
 import com.br.livedwine.model.Wine;
 import com.br.livedwine.service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -45,7 +50,7 @@ public class WineEndpoint {
     }
 
     @GetMapping
-    ResponseEntity<Page<Wine>> listAll(@PageableDefault Pageable pageable){
+    public ResponseEntity<Page<Wine>> listAll(@PageableDefault Pageable pageable){
         return new ResponseEntity<>(wineService.listAll(pageable), HttpStatus.OK);
     }
 

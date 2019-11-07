@@ -48,8 +48,6 @@ public class Wine implements Serializable{
 
     private Integer harvest;
 
-    private String image;
-
     @ElementCollection
     @CollectionTable(name = "wine_grape", joinColumns = @JoinColumn(name = "wine_id"))
     private List<String> grape;
